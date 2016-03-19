@@ -45,25 +45,21 @@ public class MainActivity extends ActionBarActivity {
 
         iServer = new PakuServer();
 
-        Map<String, String> comment = new HashMap<String, String>();
-        comment.put("subject", "Using the GSON library");
-        comment.put("message", "Using libraries is convenient.");
-        String json = new GsonBuilder().create().toJson(comment, Map.class);
-
-        Log.d("GSON test", json);
-
         iPostButton = (Button) findViewById(R.id.post_button);
         iTimestampText = (TextView) findViewById(R.id.main_timestamp_text);
 
         iPostButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                iPostButton.setClickable(false);
+
                 Thread thread = new Thread(new Runnable(){
                     @Override
                     public void run() {
                         try {
-                            // sendPostRequest("sup, fam?");
-
+                            initPark("hmukherjee", "7");
+                            //endPark("hmukherjee", "7");
+                            iPostButton.setClickable(true);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -75,11 +71,33 @@ public class MainActivity extends ActionBarActivity {
         });
     }
 
-    public void initPark(int aUserID, int aBeaconID) {
-        Map<String, Integer> lReqParms = new HashMap<String, Integer>();
-        lReqParms.put("userID", 69);
-        lReqParms.put("beaconID", 7);
+    public void initPark(String aUserID, String aBeaconID) {
+        Map<String, String> lReqParms = new HashMap<String, String>();
+        lReqParms.put("reqtype", "initpark");
+        lReqParms.put("userID", aUserID);
+        lReqParms.put("beaconID", aBeaconID);
 
-        String json = new GsonBuilder().create().toJson(lReqParms, Map.class);
+        String lJSON = new GsonBuilder().create().toJson(lReqParms, Map.class);
+
+        Log.d("test", lJSON);
+
+        String lResposne = iServer.postJSON(Constants.SERVER_DEFAULT_PATH, lJSON);
+
+        Log.d("testInit", lResposne);
+    }
+
+    public void endPark(String aUserID, String aBeaconID) {
+        Map<String, String> lReqParms = new HashMap<String, String>();
+        lReqParms.put("reqtype", "endpark");
+        lReqParms.put("userID", aUserID);
+        lReqParms.put("beaconID", aBeaconID);
+
+        String lJSON = new GsonBuilder().create().toJson(lReqParms, Map.class);
+
+        Log.d("test", lJSON);
+
+        String lResponse = iServer.postJSON(Constants.SERVER_DEFAULT_PATH, lJSON);
+
+        Log.d("response", lResponse);
     }
 }
