@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.GsonBuilder;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -24,10 +26,14 @@ import org.w3c.dom.Text;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    PakuServer iServer;
 
     TextView iTimestampText;
     Button iPostButton;
@@ -36,6 +42,15 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        iServer = new PakuServer();
+
+        Map<String, String> comment = new HashMap<String, String>();
+        comment.put("subject", "Using the GSON library");
+        comment.put("message", "Using libraries is convenient.");
+        String json = new GsonBuilder().create().toJson(comment, Map.class);
+
+        Log.d("GSON test", json);
 
         iPostButton = (Button) findViewById(R.id.post_button);
         iTimestampText = (TextView) findViewById(R.id.main_timestamp_text);
@@ -47,7 +62,8 @@ public class MainActivity extends ActionBarActivity {
                     @Override
                     public void run() {
                         try {
-                            sendPostRequest("sup, fam?");
+                            // sendPostRequest("sup, fam?");
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -59,54 +75,11 @@ public class MainActivity extends ActionBarActivity {
         });
     }
 
-    public void sendPostRequest(String aMessage) {
-        HttpClient httpClient = new DefaultHttpClient();
+    public void initPark(int aUserID, int aBeaconID) {
+        Map<String, Integer> lReqParms = new HashMap<String, Integer>();
+        lReqParms.put("userID", 69);
+        lReqParms.put("beaconID", 7);
 
-        HttpPost httpPost = new HttpPost("http://192.168.1.105:2116");
-
-
-        List<NameValuePair> lNameValuePair = new ArrayList<NameValuePair>(1);
-        lNameValuePair.add(new BasicNameValuePair("message", aMessage));
-
-        try {
-            httpPost.setEntity(new UrlEncodedFormEntity(lNameValuePair));
-        } catch(UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            HttpResponse lResponse = httpClient.execute(httpPost);
-
-            iTimestampText.setText(EntityUtils.toString(lResponse.getEntity()));
-            Log.d("Http Post Response:", EntityUtils.toString(lResponse.getEntity()));
-        } catch (ClientProtocolException e) {
-            // Log exception
-            e.printStackTrace();
-        } catch (IOException e) {
-            // Log exception
-            e.printStackTrace();
-        }
-
-    }
-
-    private void makeGetRequest() {
-
-        HttpClient client = new DefaultHttpClient();
-        HttpGet request = new HttpGet("http://192.168.1.100:2116");
-        // replace with your url
-
-        HttpResponse response;
-        try {
-            response = client.execute(request);
-
-            Log.d("Response of GET request", response.toString());
-        } catch (ClientProtocolException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
+        String json = new GsonBuilder().create().toJson(lReqParms, Map.class);
     }
 }
