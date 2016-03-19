@@ -3,31 +3,13 @@ package com.example.hreeels.pakuclient;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.GsonBuilder;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-import org.w3c.dom.Text;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -36,7 +18,9 @@ public class MainActivity extends ActionBarActivity {
     PakuServer iServer;
 
     TextView iTimestampText;
-    Button iPostButton;
+
+    Button iCheckInButton;
+    Button iCheckOutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,21 +29,42 @@ public class MainActivity extends ActionBarActivity {
 
         iServer = new PakuServer();
 
-        iPostButton = (Button) findViewById(R.id.post_button);
+        iCheckInButton = (Button) findViewById(R.id.check_in_button);
+        iCheckOutButton = (Button) findViewById(R.id.check_out_button);
         iTimestampText = (TextView) findViewById(R.id.main_timestamp_text);
 
-        iPostButton.setOnClickListener(new View.OnClickListener() {
+        iCheckInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                iPostButton.setClickable(false);
+                iCheckInButton.setClickable(false);
 
-                Thread thread = new Thread(new Runnable(){
+                Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            initPark("hmukherjee", "7");
-                            //endPark("hmukherjee", "7");
-                            iPostButton.setClickable(true);
+                            initPark("71", "7");
+                            iCheckInButton.setClickable(true);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+                thread.start();
+            }
+        });
+
+        iCheckOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iCheckOutButton.setClickable(false);
+
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            endPark("71", "7");
+                            iCheckOutButton.setClickable(true);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -75,7 +80,7 @@ public class MainActivity extends ActionBarActivity {
         Map<String, String> lReqParms = new HashMap<String, String>();
         lReqParms.put("reqtype", "initpark");
         lReqParms.put("userID", aUserID);
-        lReqParms.put("beaconID", aBeaconID);
+        lReqParms.put("parkingID", aBeaconID);
 
         String lJSON = new GsonBuilder().create().toJson(lReqParms, Map.class);
 
@@ -90,7 +95,7 @@ public class MainActivity extends ActionBarActivity {
         Map<String, String> lReqParms = new HashMap<String, String>();
         lReqParms.put("reqtype", "endpark");
         lReqParms.put("userID", aUserID);
-        lReqParms.put("beaconID", aBeaconID);
+        lReqParms.put("parkingID", aBeaconID);
 
         String lJSON = new GsonBuilder().create().toJson(lReqParms, Map.class);
 

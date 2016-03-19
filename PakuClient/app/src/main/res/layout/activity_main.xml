@@ -19,9 +19,16 @@
         android:layout_width="200dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:layout_marginTop="400dp"
-        android:text="SEND TIMESTAMP"
+        android:text="ENTER PARKING SPOT"
         android:textSize="20dp"
-        android:id="@+id/post_button"/>
+        android:id="@+id/check_in_button"/>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:text="LEAVE PARKING SPOT"
+        android:textSize="20dp"
+        android:id="@+id/check_out_button"/>
 
 </LinearLayout>
