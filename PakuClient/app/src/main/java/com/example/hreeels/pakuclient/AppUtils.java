@@ -2,9 +2,6 @@ package com.example.hreeels.pakuclient;
 
 import com.google.gson.GsonBuilder;
 
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.Map;
 
 /**

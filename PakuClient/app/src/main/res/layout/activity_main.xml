@@ -4,31 +4,105 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="#A7D4F2">
 
-   <TextView
-       android:id="@+id/main_timestamp_text"
-       android:layout_width="match_parent"
-       android:layout_height="0dp"
-       android:layout_weight="0.5"
-       android:textSize="10dp"
-       android:text="Current Timestamp"
-       android:gravity="center" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:background="#3498DB">
 
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:text="ENTER PARKING SPOT"
-        android:textSize="20dp"
-        android:id="@+id/check_in_button"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"/>
 
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:text="LEAVE PARKING SPOT"
-        android:textSize="20dp"
-        android:id="@+id/check_out_button"/>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"
+            android:src="@drawable/app_icon"
+            android:paddingLeft="100dp"
+            android:paddingBottom="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            />
+
+        <TextView
+            android:id="@+id/main_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.7"
+            android:textSize="30dp"
+            android:textColor="#FFFFFF"
+            android:gravity="center_vertical"
+            android:text="Pāku"
+            android:paddingRight="60dp"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.02"></LinearLayout>
+
+
+    <TextView
+        android:id="@+id/main_caption"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:paddingBottom="20dp"
+        android:gravity="center|bottom"
+        android:textColor="#FFFFFF"
+        android:textSize="50dp"
+        android:text="You are currently parked in spot"
+        />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
+        android:src="@drawable/down_arrow"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        >
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.33"
+            android:src="@drawable/left_bracket"
+            android:padding="20dp" />
+
+        <TextView
+            android:id="@+id/parking_spot_number"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.33"
+            android:textSize="110dp"
+            android:text="--"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.33"
+            android:src="@drawable/right_bracket"
+            android:padding="20dp" />
+
+    </LinearLayout>
 
 </LinearLayout>
