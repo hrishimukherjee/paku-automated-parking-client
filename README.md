@@ -1,5 +1,5 @@
 # Paku Automated Parking Client
-
+**Project Team Members:** Hrishi Mukherjee, Scott Andrechek, Paul Loh, Arsam Golriz
 **Authors:** Hrishi Mukherjee
 
 The mobile application for the automated parking concept.
