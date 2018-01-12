@@ -3,7 +3,9 @@
 
 **Mobile Client Authors:** Hrishi Mukherjee
 
-The mobile application for the automated parking concept.
+**Server-Side Code:** https://github.com/BranchofLight/WearHacksServer
+
+This repo is the mobile application for the automated parking concept.
 
 2ND PLACE PROJECT AT WEARHACKS KITCHENER-WATERLOO 2016: https://devpost.com/software/paku#updates
 
